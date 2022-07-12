@@ -6,45 +6,44 @@ from dash import dcc
 import plotly.graph_objs as go
 
 ########### Define your variables
-beers=['Chesapeake Stout', 'Snake Dog IPA', 'Imperial Porter', 'Double Dog IPA']
-ibu_values=[35, 60, 85, 75]
-abv_values=[5.4, 7.1, 9.2, 4.3]
-color1='darkred'
+days=['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
+distance_values=[3.0, 5.5, 7.0, 5.7, 8.5, 10.0, 3.5]
+effort_values=[2.4, 4.1, 6.2, 4.3, 7.3, 9.0, 2.0]
+color1='darkblue'
 color2='orange'
-mytitle='Beer Comparison'
+mytitle='Running log'
 
-label1='IBU'
-label2='ABV'
+label1='Distance'
+label2='Effort'
 
 ########### Set up the chart
 
 def make_that_cool_barchart(beers, ibu_values, abv_values, color1, color2, mytitle):
-    bitterness = go.Bar(
-        x=beers,
-        y=ibu_values,
+    distance = go.Bar(
+        x=days,
+        y=distance_values,
         name=label1,
         marker={'color':color1}
     )
-    alcohol = go.Bar(
-        x=beers,
-        y=abv_values,
+    effort = go.Bar(
+        x=days,
+        y=effort_values,
         name=label2,
         marker={'color':color2}
     )
 
-    beer_data = [bitterness, alcohol]
-    beer_layout = go.Layout(
+    running_data = [distance, effort]
+    running_layout = go.Layout(
         barmode='group',
         title = mytitle
     )
 
-    beer_fig = go.Figure(data=beer_data, layout=beer_layout)
-    return beer_fig
-
+    running_fig = go.Figure(data=running_data, layout=running_layout)
+    return running_fig
 
 ######### Run the function #######
 
 if __name__ == '__main__':
-    fig = make_that_cool_barchart(beers, ibu_values, abv_values, color1, color2, mytitle)
+    fig = make_that_cool_barchart(days, distance_values, effort_values, color1, color2, mytitle)
     fig.write_html('docs/barchart.html')
     print('We successfully updated the barchart!')
